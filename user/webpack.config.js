@@ -1,9 +1,9 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 module.exports = {
-  entry: './src/index.js',
-  mode: 'development',
+  entry: "./src/index.js",
+  mode: "development",
   devServer: {
     port: 3001,
   },
@@ -11,20 +11,24 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: "./public/index.html",
     }),
     new ModuleFederationPlugin({
-      name: 'user',
-      filename: 'remoteEntry.js',
+      name: "user",
+      filename: "remoteEntry.js",
       exposes: {
-        './UserApp': './src/UserApp',
+        "./UserApp": "./src/UserApp",
       },
     }),
   ],

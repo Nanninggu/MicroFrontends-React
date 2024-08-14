@@ -1,0 +1,8 @@
+.hoverable-item a {
+  color: initial; /* 기본 색상 설정 */
+  transition: color 0.3s ease;
+}
+
+.hoverable-item a:hover {
+  color: blue; /* 마우스 오버 시 변경할 색상 */
+}
