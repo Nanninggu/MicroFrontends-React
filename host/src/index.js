@@ -17,6 +17,12 @@ const UserApp = lazy(loadComponent('user', './UserApp'));
 const AdminApp = lazy(loadComponent('admin', './AdminApp'));
 const DepartmentApp = lazy(loadComponent('department', './DepartmentApp'));
 
+const Footer = () => (
+  <footer style={{ textAlign: 'center', padding: '1em', background: '#f1f1f1' }}>
+    <p>Footer content goes here</p>
+  </footer>
+);
+
 const App = () => {
   const [services, setServices] = useState({
     user: false,
@@ -51,38 +57,42 @@ const App = () => {
     checkServices();
   }, []);
 
-return (
-  <div>
-    <h1>Host Application</h1>
-    {services.user ? (
-      <ErrorBoundary>
-        <Suspense fallback={<div>Loading UserApp...</div>}>
-          <UserApp />
-        </Suspense>
-      </ErrorBoundary>
-    ) : (
-      <div>user application이 실행중이지 않습니다.</div>
-    )}
-    {services.admin ? (
-      <ErrorBoundary>
-        <Suspense fallback={<div>Loading AdminApp...</div>}>
-          <AdminApp />
-        </Suspense>
-      </ErrorBoundary>
-    ) : (
-      <div>admin application이 실행중이지 않습니다.</div>
-    )}
-    {services.department ? (
-      <ErrorBoundary>
-        <Suspense fallback={<div>Loading DepartmentApp...</div>}>
-          <DepartmentApp />
-        </Suspense>
-      </ErrorBoundary>
-    ) : (
-      <div>department application이 실행중이지 않습니다.</div>
-    )}
-  </div>
-);
+  return (
+    <div>
+      {services.user ? (
+        <ErrorBoundary>
+          <Suspense fallback={<div>Loading UserApp...</div>}>
+            <UserApp />
+          </Suspense>
+        </ErrorBoundary>
+      ) : (
+        <div>user application이 실행중이지 않습니다.</div>
+      )}
+      <div style={{ display: 'flex' }}>
+        {services.admin ? (
+          <ErrorBoundary>
+            <Suspense fallback={<div>Loading AdminApp...</div>}>
+              <AdminApp />
+            </Suspense>
+          </ErrorBoundary>
+        ) : (
+          <div>admin application이 실행중이지 않습니다.</div>
+        )}
+        <div style={{ flex: 1, padding: '0px' }}>
+          {services.department ? (
+            <ErrorBoundary>
+              <Suspense fallback={<div>Loading DepartmentApp...</div>}>
+                <DepartmentApp />
+              </Suspense>
+            </ErrorBoundary>
+          ) : (
+            <div>department application이 실행중이지 않습니다.</div>
+          )}
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));
